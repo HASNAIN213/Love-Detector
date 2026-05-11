@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💝 A Message For You</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: #0a0010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Starfield */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: var(--o); transform: scale(1.2); }
+  }
+
+  /* Floating petals */
+  .petal {
+    position: fixed;
+    font-size: 1.2rem;
+    animation: fall linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Main card */
+  .card {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 3rem 2.5rem;
+    max-width: 420px;
+    width: 90%;
+    animation: fadeIn 2s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .heart-big {
+    font-size: 4rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: block;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 20px rgba(255,100,150,0.8));
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.2); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    70% { transform: scale(1); }
+  }
+
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 40px rgba(255,150,200,0.5);
+    animation: glow 3s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 20px rgba(255,150,200,0.4); }
+    50% { text-shadow: 0 0 40px rgba(255,150,200,0.9), 0 0 80px rgba(255,100,150,0.3); }
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: rgba(255,200,220,0.75);
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+    color: rgba(255,150,180,0.4);
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,150,180,0.3), transparent);
+  }
+
+  .message {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: rgba(255,220,235,0.85);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  .name-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #ffb3c8;
+    font-style: italic;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+  }
+
+  /* Orbiting hearts */
+  .orbit-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+  }
+  .orbit {
+    position: absolute;
+    inset: 0;
+    animation: spin 4s linear infinite;
+  }
+  .orbit-dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+  }
+  .orbit2 { animation: spin 6s linear infinite reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Glassmorphism border */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,150,180,0.3), rgba(255,50,100,0.1), rgba(150,50,200,0.2));
+    z-index: -1;
+    animation: borderGlow 4s ease-in-out infinite;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 23px;
+    background: rgba(20,5,30,0.85);
+    backdrop-filter: blur(20px);
+    z-index: -1;
+  }
+  @keyframes borderGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* Device info box (hidden, logs quietly) */
+  #device-log {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div id="petals"></div>
+
+<div class="card">
+  <div class="orbit-container">
+    <div class="orbit"><span class="orbit-dot">🌸</span></div>
+    <div class="orbit orbit2"><span class="orbit-dot">✨</span></div>
+    <span class="heart-big">💝</span>
+  </div>
+
+  <h1 class="title">I Love You</h1>
+  <p class="subtitle">Sirf tumhare liye...</p>
+
+  <div class="divider">❦</div>
+
+  <p class="message">
+    Tum jo bhi ho, jahan bhi ho<br>
+    jaisi bhi ho, mujhy kabool ho<br>
+    har waqt mere dil mein ho.<br>
+    or mujhy pora yaqeen hy<br>
+    allah humy ek din zarror sath karay ga hamesha kay liye<br>
+    Yeh chhota sa paigham sirf meri mauhtarma choclate<br>
+    tumhare liye hai... 🌹
+  </p>
+
+  <div class="divider">❦</div>
+  <p class="name-tag">— Tumhara motooo 😘💫</p>
+</div>
+
+<div id="device-log"></div>
+
+<script>
+  // ── Stars ──────────────────────────────────────────
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%; top:${Math.random()*100}%;
+      --d:${(Math.random()*3+2).toFixed(1)}s;
+      --o:${(Math.random()*0.7+0.3).toFixed(2)};
+      animation-delay:${(Math.random()*4).toFixed(1)}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // ── Petals ─────────────────────────────────────────
+  const petalEmojis = ['🌸','🌺','🌹','💮','🌷'];
+  const petalsEl = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      animation-duration:${(Math.random()*8+6).toFixed(1)}s;
+      animation-delay:${(Math.random()*8).toFixed(1)}s;
+      font-size:${(Math.random()*0.8+0.8).toFixed(1)}rem;
+    `;
+    petalsEl.appendChild(p);
+  }
+
+  // ── Device Detection & Logging ─────────────────────
+  function getDeviceInfo() {
+    const ua = navigator.userAgent;
+    const w  = window.screen.width;
+    const h  = window.screen.height;
+    const touch = navigator.maxTouchPoints > 0;
+
+    let deviceType = 'Unknown';
+    if (/Android/i.test(ua))              deviceType = '📱 Android Phone/Tablet';
+    else if (/iPhone|iPod/i.test(ua))     deviceType = '📱 iPhone';
+    else if (/iPad/i.test(ua))            deviceType = '📱 iPad';
+    else if (/Macintosh/i.test(ua) && touch) deviceType = '💻 MacBook (touch)';
+    else if (/Windows NT/i.test(ua) && touch) deviceType = '💻 Windows Laptop/Tablet';
+    else if (/Macintosh/i.test(ua))       deviceType = '💻 MacBook / iMac';
+    else if (/Windows NT/i.test(ua))      deviceType = '💻 Windows Laptop/PC';
+    else if (/Linux/i.test(ua))           deviceType = '💻 Linux PC';
+
+    const isMobile = /Mobi|Android|iPhone|iPod/i.test(ua);
+    const isTablet = /iPad|Tablet/i.test(ua) || (touch && !isMobile);
+    const category = isMobile ? 'PHONE' : isTablet ? 'TABLET' : 'LAPTOP/PC';
+
+    return {
+      deviceType,
+      category,
+      screenSize: `${w} × ${h} px`,
+      touchscreen: touch ? 'Yes' : 'No',
+      browser: getBrowser(ua),
+      platform: navigator.platform || 'N/A',
+      language: navigator.language,
+      time: new Date().toLocaleString(),
+    };
+  }
+
+  function getBrowser(ua) {
+    if (/Chrome/i.test(ua) && !/Edge|OPR/i.test(ua)) return 'Chrome';
+    if (/Firefox/i.test(ua))  return 'Firefox';
+    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+    if (/Edge/i.test(ua))     return 'Edge';
+    if (/OPR|Opera/i.test(ua)) return 'Opera';
+    return 'Unknown';
+  }
+
+  // Store in localStorage so YOU can check anytime
+  const info = getDeviceInfo();
+  const logKey = 'visitor_device_log';
+  const existing = JSON.parse(localStorage.getItem(logKey) || '[]');
+  existing.push(info);
+  localStorage.setItem(logKey, JSON.stringify(existing));
+
+  // Also show a hidden readable summary you can inspect via console
+  console.log('%c📱 Device Detected:', 'color:#ff69b4;font-size:16px;font-weight:bold;');
+  console.table(info);
+  console.log('%cOpen DevTools > Console on YOUR device after sharing the link to see this info stored locally.', 'color:#aaa;font-size:11px');
+
+  // Show result banner after 3 seconds (only visible to YOU if you open it)
+  // You can also check by adding ?check to the URL
+  if (window.location.search.includes('check')) {
+    const logs = JSON.parse(localStorage.getItem('visitor_device_log') || '[]');
+    document.body.insertAdjacentHTML('beforeend', `
+      <div style="
+        position:fixed; bottom:0; left:0; right:0;
+        background:#1a0025; color:#fff; padding:1.2rem;
+        font-family:monospace; font-size:13px; z-index:999;
+        border-top:2px solid #ff69b4;
+        max-height:50vh; overflow-y:auto;
+      ">
+        <strong style="color:#ff69b4;">📊 Device Log (${logs.length} visit${logs.length>1?'s':''})</strong><br><br>
+        ${logs.map((l,i) => `
+          <div style="margin-bottom:10px;padding:8px;background:rgba(255,100,150,0.1);border-radius:6px">
+            <b>Visit ${i+1}:</b> ${l.time}<br>
+            🖥️ Device: <b style="color:#ff69b4">${l.category}</b> — ${l.deviceType}<br>
+            📐 Screen: ${l.screenSize}<br>
+            👆 Touchscreen: ${l.touchscreen}<br>
+            🌐 Browser: ${l.browser}<br>
+            🗣️ Language: ${l.language}
+          </div>
+        `).join('')}
+        <br><small style="color:#888">Clear log: localStorage.removeItem('visitor_device_log')</small>
+      </div>
+    `);
+  }
+</script>
+</body>
+</html>
