@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     min-height: 100vh;
     background: #0a0010;
@@ -18,61 +17,32 @@
     overflow: hidden;
     position: relative;
   }
-
-  /* Starfield */
-  .stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
   .star {
-    position: absolute;
-    border-radius: 50%;
-    background: white;
-    animation: twinkle var(--d) ease-in-out infinite;
-    opacity: 0;
+    position: absolute; border-radius: 50%; background: white;
+    animation: twinkle var(--d) ease-in-out infinite; opacity: 0;
   }
   @keyframes twinkle {
     0%, 100% { opacity: 0; transform: scale(0.8); }
     50% { opacity: var(--o); transform: scale(1.2); }
   }
-
-  /* Floating petals */
-  .petal {
-    position: fixed;
-    font-size: 1.2rem;
-    animation: fall linear infinite;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-  }
+  .petal { position: fixed; animation: fall linear infinite; opacity: 0.6; pointer-events: none; z-index: 0; }
   @keyframes fall {
     0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
     100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
   }
-
-  /* Main card */
   .card {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 3rem 2.5rem;
-    max-width: 420px;
-    width: 90%;
+    position: relative; z-index: 10; text-align: center;
+    padding: 3rem 2.5rem; max-width: 420px; width: 90%;
     animation: fadeIn 2s ease forwards;
   }
-
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   .heart-big {
-    font-size: 4rem;
-    animation: heartbeat 1.5s ease-in-out infinite;
-    display: block;
-    margin-bottom: 1.5rem;
+    font-size: 4rem; animation: heartbeat 1.5s ease-in-out infinite;
+    display: block; margin-bottom: 1.5rem;
     filter: drop-shadow(0 0 20px rgba(255,100,150,0.8));
   }
   @keyframes heartbeat {
@@ -82,261 +52,286 @@
     42% { transform: scale(1.15); }
     70% { transform: scale(1); }
   }
-
   .title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.02em;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 40px rgba(255,150,200,0.5);
+    font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.5rem;
     animation: glow 3s ease-in-out infinite;
   }
   @keyframes glow {
     0%, 100% { text-shadow: 0 0 20px rgba(255,150,200,0.4); }
     50% { text-shadow: 0 0 40px rgba(255,150,200,0.9), 0 0 80px rgba(255,100,150,0.3); }
   }
-
-  .subtitle {
-    font-size: 1.15rem;
-    color: rgba(255,200,220,0.75);
-    font-style: italic;
-    margin-bottom: 2rem;
-    font-weight: 300;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin: 1.5rem 0;
-    color: rgba(255,150,180,0.4);
-  }
+  .subtitle { font-size: 1.15rem; color: rgba(255,200,220,0.75); font-style: italic; margin-bottom: 2rem; }
+  .divider { display: flex; align-items: center; gap: 0.8rem; margin: 1.5rem 0; color: rgba(255,150,180,0.4); }
   .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
+    content: ''; flex: 1; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,150,180,0.3), transparent);
   }
-
-  .message {
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: rgba(255,220,235,0.85);
-    font-weight: 300;
-    font-style: italic;
-    margin-bottom: 2rem;
-  }
-
-  .name-tag {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: #ffb3c8;
-    font-style: italic;
-    margin-top: 0.5rem;
-    opacity: 0.9;
-  }
-
-  /* Orbiting hearts */
-  .orbit-container {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
-  }
-  .orbit {
-    position: absolute;
-    inset: 0;
-    animation: spin 4s linear infinite;
-  }
-  .orbit-dot {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-  }
-  .orbit2 { animation: spin 6s linear infinite reverse; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Glassmorphism border */
+  .message { font-size: 1.05rem; line-height: 1.9; color: rgba(255,220,235,0.85); font-style: italic; margin-bottom: 2rem; }
+  .name-tag { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #ffb3c8; font-style: italic; }
   .card::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 24px;
+    content: ''; position: absolute; inset: -1px; border-radius: 24px;
     background: linear-gradient(135deg, rgba(255,150,180,0.3), rgba(255,50,100,0.1), rgba(150,50,200,0.2));
-    z-index: -1;
-    animation: borderGlow 4s ease-in-out infinite;
+    z-index: -1; animation: borderGlow 4s ease-in-out infinite;
   }
   .card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 23px;
-    background: rgba(20,5,30,0.85);
-    backdrop-filter: blur(20px);
-    z-index: -1;
+    content: ''; position: absolute; inset: 0; border-radius: 23px;
+    background: rgba(20,5,30,0.85); backdrop-filter: blur(20px); z-index: -1;
   }
-  @keyframes borderGlow {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
+  @keyframes borderGlow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
-  /* Device info box (hidden, logs quietly) */
-  #device-log {
+  /* ── Admin panel ── */
+  #admin {
     display: none;
+    position: fixed; inset: 0; background: #0d0015;
+    color: #fff; font-family: monospace; font-size: 13px;
+    padding: 1.5rem; overflow-y: auto; z-index: 999;
   }
+  #admin h2 { color: #ff69b4; margin-bottom: 1rem; font-size: 1.2rem; }
+  .log-entry {
+    background: rgba(255,100,150,0.08); border: 1px solid rgba(255,100,150,0.2);
+    border-radius: 8px; padding: 0.9rem; margin-bottom: 0.8rem;
+  }
+  .log-entry b { color: #ff69b4; }
+  .device-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-weight: bold; font-size: 14px; margin-bottom: 6px;
+  }
+  .PHONE { background: rgba(0,200,100,0.2); color: #00e676; border: 1px solid #00e676; }
+  .LAPTOP { background: rgba(100,150,255,0.2); color: #82b1ff; border: 1px solid #82b1ff; }
+  .TABLET { background: rgba(255,200,0,0.2); color: #ffd740; border: 1px solid #ffd740; }
+  #setup-box {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; flex-direction: column; gap: 1rem; padding: 2rem;
+    font-family: monospace; color: #fff;
+  }
+  #setup-box h2 { color: #ff69b4; text-align: center; }
+  #setup-box input {
+    width: 100%; max-width: 420px; padding: 10px 14px;
+    border-radius: 8px; border: 1px solid #ff69b4;
+    background: #1a0025; color: #fff; font-size: 14px;
+  }
+  #setup-box button {
+    padding: 10px 28px; background: #ff69b4; color: #fff;
+    border: none; border-radius: 8px; font-size: 15px; cursor: pointer;
+  }
+  #setup-box p { color: #aaa; font-size: 12px; text-align: center; max-width: 380px; }
+  #setup-box a { color: #ff69b4; }
 </style>
 </head>
 <body>
+
+<!-- Setup box shown only if no BIN ID configured -->
+<div id="setup-box" style="display:none">
+  <h2>⚙️ One-Time Setup</h2>
+  <p>Paste your <b>JSONBin BIN ID</b> and <b>API Key</b> below.<br>
+     Get them free at <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> →
+     Sign up → Create Bin → Copy ID & Master Key</p>
+  <input id="inp-bin" placeholder="BIN ID  e.g. 664abc123def..." />
+  <input id="inp-key" placeholder="API Key  e.g. $2a$10$..." />
+  <button onclick="saveSetup()">Save & Continue</button>
+  <p style="color:#666">These are saved only in your browser. She will never see this screen.</p>
+</div>
 
 <div class="stars" id="stars"></div>
 <div id="petals"></div>
 
 <div class="card">
-  <div class="orbit-container">
-    <div class="orbit"><span class="orbit-dot">🌸</span></div>
-    <div class="orbit orbit2"><span class="orbit-dot">✨</span></div>
-    <span class="heart-big">💝</span>
-  </div>
-
+  <span class="heart-big">💝</span>
   <h1 class="title">I Love You</h1>
   <p class="subtitle">Sirf tumhare liye...</p>
-
   <div class="divider">❦</div>
-
   <p class="message">
-    Tum jo bhi ho, jahan bhi ho<br>
-    jaisi bhi ho, mujhy kabool ho<br>
+    Tum jo bhi ho, jahan bhi ho —<br>
     har waqt mere dil mein ho.<br>
-    or mujhy pora yaqeen hy<br>
-    allah humy ek din zarror sath karay ga hamesha kay liye<br>
-    Yeh chhota sa paigham sirf meri mauhtarma choclate<br>
+    Yeh chhota sa paigham sirf<br>
     tumhare liye hai... 🌹
   </p>
-
   <div class="divider">❦</div>
-  <p class="name-tag">— Tumhara motooo 😘💫</p>
+  <p class="name-tag">— Tumhara apna 💫</p>
 </div>
 
-<div id="device-log"></div>
+<!-- Admin panel: open by adding ?admin to URL -->
+<div id="admin">
+  <h2>📊 Device Log — Who Opened This Link</h2>
+  <div id="log-list"><i style="color:#888">Loading...</i></div>
+  <br>
+  <button onclick="clearLog()" style="background:#ff4466;color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer">🗑 Clear Log</button>
+</div>
 
 <script>
-  // ── Stars ──────────────────────────────────────────
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 120; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random() * 2.5 + 0.5;
-    s.style.cssText = `
-      width:${size}px; height:${size}px;
-      left:${Math.random()*100}%; top:${Math.random()*100}%;
-      --d:${(Math.random()*3+2).toFixed(1)}s;
-      --o:${(Math.random()*0.7+0.3).toFixed(2)};
-      animation-delay:${(Math.random()*4).toFixed(1)}s;
-    `;
-    starsEl.appendChild(s);
+// ════════════════════════════════════════════
+//  CONFIG — stored in localStorage after setup
+// ════════════════════════════════════════════
+const STORAGE_KEY = 'ld_config';
+
+function getConfig() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveSetup() {
+  const bin = document.getElementById('inp-bin').value.trim();
+  const key = document.getElementById('inp-key').value.trim();
+  if (!bin || !key) { alert('Please fill both fields!'); return; }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ bin, key }));
+  document.getElementById('setup-box').style.display = 'none';
+  logVisit();
+}
+
+// ════════════════════════════════════════════
+//  DEVICE DETECTION
+// ════════════════════════════════════════════
+function detectDevice() {
+  const ua = navigator.userAgent;
+  const touch = navigator.maxTouchPoints > 0;
+  const isMobile = /Mobi|Android|iPhone|iPod/i.test(ua);
+  const isTablet = /iPad|Tablet/i.test(ua) || (touch && !isMobile && window.screen.width < 1200);
+
+  let deviceType = 'Laptop/PC';
+  let category = 'LAPTOP';
+  if (/iPhone|iPod/i.test(ua)) { deviceType = 'iPhone'; category = 'PHONE'; }
+  else if (/Android/i.test(ua) && isMobile) { deviceType = 'Android Phone'; category = 'PHONE'; }
+  else if (/iPad/i.test(ua) || isTablet) { deviceType = 'Tablet/iPad'; category = 'TABLET'; }
+  else if (/Macintosh/i.test(ua)) { deviceType = 'MacBook/iMac'; category = 'LAPTOP'; }
+  else if (/Windows NT/i.test(ua)) { deviceType = 'Windows PC/Laptop'; category = 'LAPTOP'; }
+
+  let browser = 'Unknown';
+  if (/Chrome/i.test(ua) && !/Edge|OPR/i.test(ua)) browser = 'Chrome';
+  else if (/Firefox/i.test(ua)) browser = 'Firefox';
+  else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = 'Safari';
+  else if (/Edge/i.test(ua)) browser = 'Edge';
+
+  return {
+    category,
+    deviceType,
+    browser,
+    screen: `${screen.width}×${screen.height}`,
+    touchscreen: touch ? 'Yes' : 'No',
+    language: navigator.language,
+    time: new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' }),
+  };
+}
+
+// ════════════════════════════════════════════
+//  JSONBIN — log visitor
+// ════════════════════════════════════════════
+async function logVisit() {
+  const cfg = getConfig();
+  if (!cfg.bin || !cfg.key) return;
+
+  const info = detectDevice();
+
+  try {
+    // 1. Get existing data
+    const getRes = await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}/latest`, {
+      headers: { 'X-Master-Key': cfg.key }
+    });
+    const getData = await getRes.json();
+    const existing = getData.record?.visits || [];
+
+    // 2. Push new entry
+    existing.push(info);
+
+    // 3. Update bin
+    await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': cfg.key
+      },
+      body: JSON.stringify({ visits: existing })
+    });
+  } catch(e) {
+    console.error('Log error:', e);
+  }
+}
+
+// ════════════════════════════════════════════
+//  ADMIN PANEL
+// ════════════════════════════════════════════
+async function loadAdmin() {
+  const cfg = getConfig();
+  document.getElementById('admin').style.display = 'block';
+  document.querySelector('.card').style.display = 'none';
+
+  if (!cfg.bin || !cfg.key) {
+    document.getElementById('log-list').innerHTML = '<span style="color:#f66">No config found. Open this page normally first to set up.</span>';
+    return;
   }
 
-  // ── Petals ─────────────────────────────────────────
-  const petalEmojis = ['🌸','🌺','🌹','💮','🌷'];
-  const petalsEl = document.getElementById('petals');
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
-    p.style.cssText = `
-      left:${Math.random()*100}%;
-      animation-duration:${(Math.random()*8+6).toFixed(1)}s;
-      animation-delay:${(Math.random()*8).toFixed(1)}s;
-      font-size:${(Math.random()*0.8+0.8).toFixed(1)}rem;
-    `;
-    petalsEl.appendChild(p);
-  }
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}/latest`, {
+      headers: { 'X-Master-Key': cfg.key }
+    });
+    const data = await res.json();
+    const visits = data.record?.visits || [];
 
-  // ── Device Detection & Logging ─────────────────────
-  function getDeviceInfo() {
-    const ua = navigator.userAgent;
-    const w  = window.screen.width;
-    const h  = window.screen.height;
-    const touch = navigator.maxTouchPoints > 0;
+    if (!visits.length) {
+      document.getElementById('log-list').innerHTML = '<i style="color:#888">No visits yet. Share the link first!</i>';
+      return;
+    }
 
-    let deviceType = 'Unknown';
-    if (/Android/i.test(ua))              deviceType = '📱 Android Phone/Tablet';
-    else if (/iPhone|iPod/i.test(ua))     deviceType = '📱 iPhone';
-    else if (/iPad/i.test(ua))            deviceType = '📱 iPad';
-    else if (/Macintosh/i.test(ua) && touch) deviceType = '💻 MacBook (touch)';
-    else if (/Windows NT/i.test(ua) && touch) deviceType = '💻 Windows Laptop/Tablet';
-    else if (/Macintosh/i.test(ua))       deviceType = '💻 MacBook / iMac';
-    else if (/Windows NT/i.test(ua))      deviceType = '💻 Windows Laptop/PC';
-    else if (/Linux/i.test(ua))           deviceType = '💻 Linux PC';
-
-    const isMobile = /Mobi|Android|iPhone|iPod/i.test(ua);
-    const isTablet = /iPad|Tablet/i.test(ua) || (touch && !isMobile);
-    const category = isMobile ? 'PHONE' : isTablet ? 'TABLET' : 'LAPTOP/PC';
-
-    return {
-      deviceType,
-      category,
-      screenSize: `${w} × ${h} px`,
-      touchscreen: touch ? 'Yes' : 'No',
-      browser: getBrowser(ua),
-      platform: navigator.platform || 'N/A',
-      language: navigator.language,
-      time: new Date().toLocaleString(),
-    };
-  }
-
-  function getBrowser(ua) {
-    if (/Chrome/i.test(ua) && !/Edge|OPR/i.test(ua)) return 'Chrome';
-    if (/Firefox/i.test(ua))  return 'Firefox';
-    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
-    if (/Edge/i.test(ua))     return 'Edge';
-    if (/OPR|Opera/i.test(ua)) return 'Opera';
-    return 'Unknown';
-  }
-
-  // Store in localStorage so YOU can check anytime
-  const info = getDeviceInfo();
-  const logKey = 'visitor_device_log';
-  const existing = JSON.parse(localStorage.getItem(logKey) || '[]');
-  existing.push(info);
-  localStorage.setItem(logKey, JSON.stringify(existing));
-
-  // Also show a hidden readable summary you can inspect via console
-  console.log('%c📱 Device Detected:', 'color:#ff69b4;font-size:16px;font-weight:bold;');
-  console.table(info);
-  console.log('%cOpen DevTools > Console on YOUR device after sharing the link to see this info stored locally.', 'color:#aaa;font-size:11px');
-
-  // Show result banner after 3 seconds (only visible to YOU if you open it)
-  // You can also check by adding ?check to the URL
-  if (window.location.search.includes('check')) {
-    const logs = JSON.parse(localStorage.getItem('visitor_device_log') || '[]');
-    document.body.insertAdjacentHTML('beforeend', `
-      <div style="
-        position:fixed; bottom:0; left:0; right:0;
-        background:#1a0025; color:#fff; padding:1.2rem;
-        font-family:monospace; font-size:13px; z-index:999;
-        border-top:2px solid #ff69b4;
-        max-height:50vh; overflow-y:auto;
-      ">
-        <strong style="color:#ff69b4;">📊 Device Log (${logs.length} visit${logs.length>1?'s':''})</strong><br><br>
-        ${logs.map((l,i) => `
-          <div style="margin-bottom:10px;padding:8px;background:rgba(255,100,150,0.1);border-radius:6px">
-            <b>Visit ${i+1}:</b> ${l.time}<br>
-            🖥️ Device: <b style="color:#ff69b4">${l.category}</b> — ${l.deviceType}<br>
-            📐 Screen: ${l.screenSize}<br>
-            👆 Touchscreen: ${l.touchscreen}<br>
-            🌐 Browser: ${l.browser}<br>
-            🗣️ Language: ${l.language}
-          </div>
-        `).join('')}
-        <br><small style="color:#888">Clear log: localStorage.removeItem('visitor_device_log')</small>
+    document.getElementById('log-list').innerHTML = visits.reverse().map((v, i) => `
+      <div class="log-entry">
+        <div class="device-badge ${v.category}">${v.category === 'PHONE' ? '📱' : '💻'} ${v.category}</div><br>
+        <b>Device:</b> ${v.deviceType}<br>
+        <b>Time:</b> ${v.time}<br>
+        <b>Browser:</b> ${v.browser}<br>
+        <b>Screen:</b> ${v.screen}<br>
+        <b>Touchscreen:</b> ${v.touchscreen}<br>
+        <b>Language:</b> ${v.language}
       </div>
-    `);
+    `).join('');
+  } catch(e) {
+    document.getElementById('log-list').innerHTML = `<span style="color:#f66">Error: ${e.message}</span>`;
   }
+}
+
+async function clearLog() {
+  const cfg = getConfig();
+  if (!confirm('Clear all visit logs?')) return;
+  await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': cfg.key },
+    body: JSON.stringify({ visits: [] })
+  });
+  loadAdmin();
+}
+
+// ════════════════════════════════════════════
+//  STARS & PETALS
+// ════════════════════════════════════════════
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div'); s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*3+2).toFixed(1)}s;--o:${(Math.random()*0.7+0.3).toFixed(2)};animation-delay:${(Math.random()*4).toFixed(1)}s;`;
+  starsEl.appendChild(s);
+}
+const petalEmojis = ['🌸','🌺','🌹','💮','🌷'];
+const petalsEl = document.getElementById('petals');
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div'); p.className = 'petal';
+  p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+  p.style.cssText = `left:${Math.random()*100}%;animation-duration:${(Math.random()*8+6).toFixed(1)}s;animation-delay:${(Math.random()*8).toFixed(1)}s;font-size:${(Math.random()*0.8+0.8).toFixed(1)}rem;`;
+  petalsEl.appendChild(p);
+}
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+const isAdmin = window.location.search.includes('admin');
+
+if (isAdmin) {
+  loadAdmin();
+} else {
+  const cfg = getConfig();
+  if (!cfg.bin || !cfg.key) {
+    document.getElementById('setup-box').style.display = 'flex';
+  } else {
+    logVisit(); // silent logging when she opens
+  }
+}
 </script>
 </body>
 </html>
