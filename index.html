@@ -166,17 +166,16 @@
 // ════════════════════════════════════════════
 const STORAGE_KEY = 'ld_config';
 
+// Hardcoded config — no setup box needed
+const HARDCODED = {
+  bin: "6a023fea250b1311c336c50a",
+  key: "$2a$10$AMxeovE6Fne6f30Rj59JG.hye07Cu7QQ8Bad8TXsMp8T5TogxP1Ki"
+};
+
 function getConfig() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+  return HARDCODED;
 }
-function saveSetup() {
-  const bin = document.getElementById('inp-bin').value.trim();
-  const key = document.getElementById('inp-key').value.trim();
-  if (!bin || !key) { alert('Please fill both fields!'); return; }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ bin, key }));
-  document.getElementById('setup-box').style.display = 'none';
-  logVisit();
-}
+function saveSetup() {}
 
 // ════════════════════════════════════════════
 //  DEVICE DETECTION
@@ -325,12 +324,7 @@ const isAdmin = window.location.search.includes('admin');
 if (isAdmin) {
   loadAdmin();
 } else {
-  const cfg = getConfig();
-  if (!cfg.bin || !cfg.key) {
-    document.getElementById('setup-box').style.display = 'flex';
-  } else {
-    logVisit(); // silent logging when she opens
-  }
+  logVisit();
 }
 </script>
 </body>
