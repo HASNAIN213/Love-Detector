@@ -253,11 +253,6 @@ async function loadAdmin() {
   document.getElementById('admin').style.display = 'block';
   document.querySelector('.card').style.display = 'none';
 
-  if (!cfg.bin || !cfg.key) {
-    document.getElementById('log-list').innerHTML = '<span style="color:#f66">No config found. Open this page normally first to set up.</span>';
-    return;
-  }
-
   try {
     const res = await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}/latest`, {
       headers: { 'X-Master-Key': cfg.key }
